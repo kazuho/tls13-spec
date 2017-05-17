@@ -2934,14 +2934,14 @@ but in the second flight, ClientHello1 is hashed and then reinjected as a
 
 Clients are permitted to "stream" 0-RTT data until they
 receive the server's Finished, only then sending the EndOfEarlyData
-message. In order to avoid deadlocks, when accepting "early_data",
+message and finishing the handshake.
+
+When accepting "early_data",
 servers MUST process the client's ClientHello and then immediately
-send the ServerHello, rather than waiting for the client's
+send the ServerHello in order to avoid deadlocks, rather than waiting for the client's
 EndOfEarlyData message.
 
-When using 0-RTT, a client MUST send its Finished message in response to
-the handshake messages sent from the server, even if there is no
-application data to be sent in 1-RTT. Servers MAY accept 0-RTT data yet
+Servers MAY accept 0-RTT data yet
 still decide to buffer and postpone the processing of the payload
 until the client sends Finished, which can be used as confirmation
 that the data was not replayed. Using such a strategy is beneficial when
